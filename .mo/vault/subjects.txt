@@ -1,0 +1,1 @@
+site: site-wide conventions and page behavior (official time zone, date display, article and index rendering)
