@@ -1,0 +1,722 @@
+{
+  "repository": "/Users/ffaria/projects/p2-self-test",
+  "remote": "FernandoAFaria/p2-self-test (GitHub)",
+  "team": "mo-b2d760",
+  "cto": "mo-b2d760-tyrion (Claude Opus, max effort)",
+  "baseline_main": "de380333e4818373fd8768eab860b0fb926056f5",
+  "sources": [
+    "mo task show <id> --json",
+    "mo events --task <id>",
+    ".git/main-operator/CURRENT.md, briefs/, managers/*.md",
+    "CTO session transcript (questions/answers, CTO review steps)"
+  ],
+  "note_on_timestamps": "mo events carry UTC timestamps; CTO-only steps (grilling, review) are ordered but untimestamped unless mo recorded them.",
+  "ticket": "Ticket 1: article publish date",
+  "status": "CTO-reviewed and marked ready; PR #2 OPEN, awaiting user merge OK (not merged)",
+  "user_request": "Show each article's publish date on the article page, in the site's official time zone. Open a pull request with the change and a test.",
+  "cto_workflow": [
+    {
+      "step": 1,
+      "action": "Loaded main-operator skill; read mo status/inbox/doctor; team init verified (4 Codex managers x 3 Claude Haiku developers); created master log CURRENT.md"
+    },
+    {
+      "step": 2,
+      "action": "Discovery: searched repo, README, GitHub metadata/issues, git history and team vault for an official time zone",
+      "result": "None defined. Data stores UTC publishedAt. Computed per-zone dates: field-notes is Oct 7 in US zones vs Oct 8 UTC; year-in-review is Oct 16 in Europe/London"
+    },
+    {
+      "step": 3,
+      "action": "Stated defaults to user (article page only; index/articles.js/server.js unchanged; no deps; one IANA constant + Intl; renderArticle-level test, no HTTP test because server.js hard-codes port 3000; PR to main, no merge without OK)"
+    },
+    {
+      "step": 4,
+      "action": "Consulted advisor before grilling",
+      "result": "Confirmed: ask the user, do not guess the zone; require TZ-matrix test"
+    },
+    {
+      "step": 5,
+      "action": "Asked user questions",
+      "questions": [
+        {
+          "question": "Which time zone is the site's official one?",
+          "options": [
+            "America/New_York",
+            "UTC",
+            "America/Los_Angeles",
+            "Europe/London"
+          ],
+          "answer": "America/New_York"
+        },
+        {
+          "question": "How should the publish date appear on the article page?",
+          "options": [
+            "Date only (Recommended): <p>Published October 7, 2026</p>",
+            "Date, time and zone",
+            "ISO date"
+          ],
+          "answer": "Date only: <p>Published October 7, 2026</p> under the title, before the body"
+        }
+      ]
+    },
+    {
+      "step": 6,
+      "action": "Routing/setup: verified baseline de38033 = origin/main; added **/.claude/worktrees/ to .git/info/exclude (mirrors turborepo.astro convention); wrote brief briefs/article-publish-date.md; defined vault subject 'site'"
+    },
+    {
+      "step": 7,
+      "action": "Hand-off: mo task assign --to mo-b2d760-jon-snow --kind change",
+      "task_id": "T0001",
+      "at": "2026-10-20T17:15:20Z"
+    },
+    {
+      "step": 8,
+      "action": "Received done report from jon-snow",
+      "at": "2026-10-20T17:24:50Z"
+    },
+    {
+      "step": 9,
+      "action": "CTO review: PR #2 base main / head b77fadb; read full diff (render.js, test/render.test.js, .mo/vault/*); in isolated worktree ran npm test under TZ=UTC, Asia/Tokyo, America/Los_Angeles, Europe/London, default (6/6 each); mutation check (zone->UTC) failed 1 test as expected"
+    },
+    {
+      "step": 10,
+      "action": "mo task ready T0001 --head b77fadbacf475d0b0fa71d0ff7b7a3ed869a7b2d",
+      "at": "2026-10-20T17:25:24Z"
+    },
+    {
+      "step": 11,
+      "action": "Reported PR #2 to user and asked for merge OK"
+    }
+  ],
+  "handoff_chain": [
+    {
+      "role": "CTO",
+      "seat": "mo-b2d760-tyrion",
+      "did": "Clarified, briefed, reviewed, marked ready"
+    },
+    {
+      "role": "Manager",
+      "seat": "mo-b2d760-jon-snow",
+      "model": "Codex GPT-6.1-Sol (high)",
+      "task": "T0001",
+      "did": "Decomposition (one owner), filed vault subject + note site-official-time-zone (commit 4f5fb1e), scorecard review of developer PR, merged PR #1 into feature branch, opened final PR #2"
+    },
+    {
+      "role": "Developer",
+      "seat": "mo-b2d760-arya",
+      "model": "Claude Haiku (xhigh)",
+      "task": "T0002",
+      "did": "Implemented renderer + regression tests; PR #1 into feature branch; scorecard 100/100"
+    }
+  ],
+  "pull_requests": [
+    {
+      "number": 1,
+      "url": "https://github.com/FernandoAFaria/p2-self-test/pull/1",
+      "from": "operator/mo-b2d760/article-date-arya",
+      "into": "operator/mo-b2d760/article-publish-date",
+      "head": "6255963b5ecae4fa6bfcf16786a0d8bee0adb891",
+      "state": "MERGED (by manager into feature branch)"
+    },
+    {
+      "number": 2,
+      "url": "https://github.com/FernandoAFaria/p2-self-test/pull/2",
+      "from": "operator/mo-b2d760/article-publish-date",
+      "into": "main",
+      "head": "b77fadbacf475d0b0fa71d0ff7b7a3ed869a7b2d",
+      "state": "OPEN, awaiting user OK"
+    }
+  ],
+  "manager_brief": "Repository: /Users/ffaria/projects/p2-self-test. Remote: origin (FernandoAFaria/p2-self-test on GitHub; gh is authenticated). PR base for the final PR: main. Baseline SHA: de380333e4818373fd8768eab860b0fb926056f5 (= origin/main).\nFeature branch: operator/mo-b2d760/article-publish-date, cut from the baseline SHA. Manager worktree path: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-publish-date. Put developer worktrees in /Users/ffaria/projects/p2-self-test/.claude/worktrees with unique mo-b2d760-* names (that folder is already excluded locally via .git/info/exclude; do not add .gitignore changes). Never edit the user's checkout at /Users/ffaria/projects/p2-self-test; preserve all existing worktrees and user files.\nSkill dir: /Users/ffaria/.claude/skills/main-operator (absolute). Your log: /Users/ffaria/projects/p2-self-test/.git/main-operator/managers/mo-b2d760-jon-snow.md.\n\nAsk (user's words): \"Show each article's publish date on the article page, in the site's official time zone. Open a pull request with the change and a test.\"\n\nUser decisions (2026-10-20), settled:\n- Official time zone: America/New_York (IANA). The stored publishedAt values in articles.js are UTC ISO strings and stay unchanged.\n- Format: date only, en-US long date, as one line directly under the article title and before the body: <p>Published October 7, 2026</p> (field-notes example). No time of day, no zone label.\n\nScope: renderArticle in render.js, plus tests under test/ (extend test/render.test.js or add a file). Expected diff: render.js, test/, and the vault files named below.\nConstraints:\n- Define the zone once as a named constant holding the IANA name. Format with built-in Intl using an explicit locale (\"en-US\") and that timeZone. Never derive the date from the machine's local zone or from the UTC calendar date.\n- No new dependencies. Do not change articles.js, the index page, server.js or package.json. Match the existing style (ESM, small template-string renderers). Existing tests keep passing.\n- Test boundary: test through renderArticle with the real articles data. Do not add an HTTP-level test or refactor server.js: it hard-codes port 3000 and listens on import, and parallel worktrees on this machine would collide on that port. server.js passes renderArticle's HTML through unchanged.\nNon-goals: dates on the index page; a settings/config system; markup beyond the one Published line; any other page change.\nAcceptance:\n1. The article pages show exactly: first-look \"Published October 1, 2026\"; field-notes \"Published October 7, 2026\" (its UTC date is October 8); year-in-review \"Published October 15, 2026\".\n2. A test asserts those exact strings, including field-notes, so an implementation using the UTC date or the machine's local zone fails it.\n3. npm test passes when run with TZ=UTC, TZ=Asia/Tokyo and TZ=America/Los_Angeles, and with no TZ override; report each run's observed result.\n4. One PR from operator/mo-b2d760/article-publish-date into main, opened with gh. Do not merge it; merging into main needs the user's OK through the CTO.\nVault:\n- New subject, defined by the CTO: \"site: site-wide conventions and page behavior (official time zone, date display, article and index rendering)\". Add it to .mo/vault/subjects.txt in this PR.\n- Record in the vault (decisions/site): the site's official time zone is America/New_York (user decision 2026-10-20). Displayed dates convert the stored UTC publishedAt into that zone and show as an en-US long date, date only (\"Published October 7, 2026\"). Why: nothing in the repo defined a zone, and the choice moves field-notes from October 8 (UTC) to October 7.\nDecomposition decision required: before dispatching, record how you split this among your developers (slices, owners, shared interface, real dependencies with their unblock criterion, non-goals, checks), or say why one owner is the right split. Dispatch ready slices in parallel. Obey the project's limits for expensive commands.\nFinish with mo task report for this task: final PR URL, head SHA, checks with observed results (including each TZ run), risks, vault notes filed (--vault-note) and used (--vault-used), and a learning note or \"no new durable learning: <reason>\"; or blocked with the decision needed.\n",
+  "cto_ready_summary": "Article pages show \"Published <Month D, YYYY>\" under the title, in America/New_York (named constant, Intl en-US with explicit timeZone). first-look Oct 1, field-notes Oct 7 (UTC Oct 8), year-in-review Oct 15, 2026. Index, articles.js, server.js unchanged; no deps.\nCTO-verified at b77fadb in an isolated worktree: npm test 6/6 under TZ=UTC, Asia/Tokyo, America/Los_Angeles, Europe/London and default; mutating the zone to UTC fails the field-notes test. Diff also adds the vault decision note (.mo/vault).\nRisks: no HTTP-level test (by design; server passes HTML through); expected dates hard-coded to current fixtures.\n",
+  "manager_log": "# mo-b2d760-jon-snow \u00b7 hand-off T0001: Article publish date\nTeam mo-b2d760 \u00b7 CTO mo-b2d760-tyrion \u00b7 Updated 2026-10-20 13:24\nFeature branch operator/mo-b2d760/article-publish-date from main @ de380333e4818373fd8768eab860b0fb926056f5 \u00b7 Final PR https://github.com/FernandoAFaria/p2-self-test/pull/2\n\n## Ask\nShow one Published en-US long date under each article title, converting UTC publishedAt into named America/New_York constant via Intl. Preserve data/index/server/package; open final PR to main, never merge main. Test real articles through renderArticle under UTC, Tokyo, LA, unset TZ. Add CTO-defined site subject and decisions/site vault note.\n\n## Slices\n| Slice | Developer | Task | Status | Depends on (unblock criterion) |\n| --- | --- | --- | --- | --- |\n| Renderer and regression test | mo-b2d760-arya | T0002 | accepted; PR #1 merged into feature | none |\n| Review, vault curation, integration, final PR | mo-b2d760-jon-snow | T0001 | reported done attempt 1 | all acceptance checks passed |\n\nOne owner chosen before dispatch because renderer/tests form one small coherent behavior. Arya owned only render.js/test; manager owned vault subject/note/index. Shared interface renderArticle(slug) -> HTML|null unchanged. No independent unfinished slice.\nVault-only reviewed commit 4f5fb1e provided subject/decision for subject-aware dispatch; developer baseline 4f5fb1e. Task baseline remains de38033. Developer head 6255963, reviewed scope and full chain articles.js:2-4 -> render.js:11-19 -> server.js:8-10. All score checks passed, both rubric items 5/5, score 100/100. Baseline missing-line failures and discriminating Tokyo/UTC mutations documented by developer.\nIntegrated head b77fadbacf475d0b0fa71d0ff7b7a3ed869a7b2d: each of UTC, Asia/Tokyo, America/Los_Angeles and env -u TZ npm test passed 6/6, exit 0. Diff check passed; protected files unchanged; worktrees clean.\nVault filed/used: site-official-time-zone. Extra generic test-rule proposal reviewed; useful observation retained as learning without expanding site conventions. Learning: Tokyo/UTC discriminate fixture dates, LA/NY do not. No U<n> received.\n\n## Open PRs\n- https://github.com/FernandoAFaria/p2-self-test/pull/1 \u00b7 T0002 \u00b7 mo-b2d760-arya \u00b7 verified MERGED into feature at b77fadb, task accepted.\n- https://github.com/FernandoAFaria/p2-self-test/pull/2 \u00b7 T0001 \u00b7 final OPEN to main at b77fadb; unmerged, verified base/head.\n\n## Next steps\n1. T0001 done report recorded successfully through mo with PR/head/checks/risks/vault/learning evidence.\n2. Await CTO review; main merge requires user approval through CTO.\n",
+  "mo_records": {
+    "T0001": {
+      "task": {
+        "id": "T0001",
+        "parent_id": "",
+        "title": "Show article publish date in America/New_York",
+        "kind": "change",
+        "brief": "Repository: /Users/ffaria/projects/p2-self-test. Remote: origin (FernandoAFaria/p2-self-test on GitHub; gh is authenticated). PR base for the final PR: main. Baseline SHA: de380333e4818373fd8768eab860b0fb926056f5 (= origin/main).\nFeature branch: operator/mo-b2d760/article-publish-date, cut from the baseline SHA. Manager worktree path: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-publish-date. Put developer worktrees in /Users/ffaria/projects/p2-self-test/.claude/worktrees with unique mo-b2d760-* names (that folder is already excluded locally via .git/info/exclude; do not add .gitignore changes). Never edit the user's checkout at /Users/ffaria/projects/p2-self-test; preserve all existing worktrees and user files.\nSkill dir: /Users/ffaria/.claude/skills/main-operator (absolute). Your log: /Users/ffaria/projects/p2-self-test/.git/main-operator/managers/mo-b2d760-jon-snow.md.\n\nAsk (user's words): \"Show each article's publish date on the article page, in the site's official time zone. Open a pull request with the change and a test.\"\n\nUser decisions (2026-10-20), settled:\n- Official time zone: America/New_York (IANA). The stored publishedAt values in articles.js are UTC ISO strings and stay unchanged.\n- Format: date only, en-US long date, as one line directly under the article title and before the body: <p>Published October 7, 2026</p> (field-notes example). No time of day, no zone label.\n\nScope: renderArticle in render.js, plus tests under test/ (extend test/render.test.js or add a file). Expected diff: render.js, test/, and the vault files named below.\nConstraints:\n- Define the zone once as a named constant holding the IANA name. Format with built-in Intl using an explicit locale (\"en-US\") and that timeZone. Never derive the date from the machine's local zone or from the UTC calendar date.\n- No new dependencies. Do not change articles.js, the index page, server.js or package.json. Match the existing style (ESM, small template-string renderers). Existing tests keep passing.\n- Test boundary: test through renderArticle with the real articles data. Do not add an HTTP-level test or refactor server.js: it hard-codes port 3000 and listens on import, and parallel worktrees on this machine would collide on that port. server.js passes renderArticle's HTML through unchanged.\nNon-goals: dates on the index page; a settings/config system; markup beyond the one Published line; any other page change.\nAcceptance:\n1. The article pages show exactly: first-look \"Published October 1, 2026\"; field-notes \"Published October 7, 2026\" (its UTC date is October 8); year-in-review \"Published October 15, 2026\".\n2. A test asserts those exact strings, including field-notes, so an implementation using the UTC date or the machine's local zone fails it.\n3. npm test passes when run with TZ=UTC, TZ=Asia/Tokyo and TZ=America/Los_Angeles, and with no TZ override; report each run's observed result.\n4. One PR from operator/mo-b2d760/article-publish-date into main, opened with gh. Do not merge it; merging into main needs the user's OK through the CTO.\nVault:\n- New subject, defined by the CTO: \"site: site-wide conventions and page behavior (official time zone, date display, article and index rendering)\". Add it to .mo/vault/subjects.txt in this PR.\n- Record in the vault (decisions/site): the site's official time zone is America/New_York (user decision 2026-10-20). Displayed dates convert the stored UTC publishedAt into that zone and show as an en-US long date, date only (\"Published October 7, 2026\"). Why: nothing in the repo defined a zone, and the choice moves field-notes from October 8 (UTC) to October 7.\nDecomposition decision required: before dispatching, record how you split this among your developers (slices, owners, shared interface, real dependencies with their unblock criterion, non-goals, checks), or say why one owner is the right split. Dispatch ready slices in parallel. Obey the project's limits for expensive commands.\nFinish with mo task report for this task: final PR URL, head SHA, checks with observed results (including each TZ run), risks, vault notes filed (--vault-note) and used (--vault-used), and a learning note or \"no new durable learning: <reason>\"; or blocked with the decision needed.\n",
+        "seat": "mo-b2d760-jon-snow",
+        "created_by": "mo-b2d760-tyrion",
+        "status": "reported",
+        "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/2",
+        "pr_state": "open",
+        "created_at": "2026-10-20T17:15:20.425429000Z",
+        "updated_at": "2026-10-20T17:24:50.677296000Z"
+      },
+      "attempts": [
+        {
+          "task_id": "T0001",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "note": "",
+          "delivery": "delivered",
+          "delivery_detail": "",
+          "prompt_path": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0001/attempt-1/prompt.md",
+          "recall": {
+            "knowledge_ref": "",
+            "category": "",
+            "subjects": [],
+            "source": "worktree",
+            "revision": "",
+            "query": "Show article publish date in America/New_York\nScope: renderArticle in render.js, plus tests under test/ (extend test/render.test.js or add a file). Expected diff: render.js, test/, and the vault files named below.\nConstraints:\nDefine the zone once as a named constant holding the IANA name. Format with built-in Intl using an explicit locale (\"en-US\") and that timeZone. Never derive the date from the machine's local zone or from the UTC calendar date.\nNo new dependencies. Do not change articles.js, the index page, server.js or package.json. Match the existing style (ESM, small template-string renderers). Existing tests keep passing.\nTest boundary: test through renderArticle with the real articles data. Do not add an HTTP-level test or refactor server.js: it hard-codes port 3000 and listens on import, and parallel worktrees on this machine would collide on that port. server.js passes renderArticle's HTML through unchanged.",
+            "notes": [
+              {
+                "name": "scout-companion-rollback-completed",
+                "layer": "private",
+                "source": "/Users/ffaria/.local/share/mo/vault",
+                "revision": "",
+                "category": ""
+              }
+            ],
+            "warnings": [],
+            "problems": []
+          },
+          "created_at": "2026-10-20T17:15:20.462026000Z",
+          "updated_at": "2026-10-20T17:24:50.677496000Z"
+        }
+      ],
+      "fresh_sessions": [
+        {
+          "task_id": "T0001",
+          "attempt": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "keep_context": false,
+          "state": "kept",
+          "detail": "kept context: kind without a verified mechanism: codex",
+          "kind": "codex",
+          "command": "",
+          "pane_id": "wQ:pM",
+          "terminal_id": "term_65e48a1fec22996",
+          "previous_session": "",
+          "deadline": "2026-10-20T17:16:21.158647000Z"
+        }
+      ],
+      "reports": [
+        {
+          "task_id": "T0001",
+          "n": 1,
+          "from": "mo-b2d760-jon-snow",
+          "status": "done",
+          "summary": "T0001 attempt 1 done. Applied updates: none (no U<n> received).\nFinal PR: https://github.com/FernandoAFaria/p2-self-test/pull/2, OPEN, base main, head operator/mo-b2d760/article-publish-date at b77fadbacf475d0b0fa71d0ff7b7a3ed869a7b2d. Not merged into main.\nBaseline: de380333e4818373fd8768eab860b0fb926056f5. Integration worktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-publish-date.\n\nBehavior: one Published en-US long-date paragraph directly under the article title before body. first-look October 1, field-notes October 7 (UTC October 8), year-in-review October 15, 2026. Named constant America/New_York and explicit Intl locale/timeZone. UTC article data, index, server, package/dependencies unchanged.\n\nDecomposition: one developer, Arya, owned renderer and regression tests because this is one small coherent behavior. Manager curated only the vault subject/decision and reviewed/integrated. T0002 PR #1 verified correct base/head, reviewed by diff, score 100/100 (four scripted checks and both rubric items 5/5), merged only into feature at b77fadb, then accepted. Both worktrees clean. No independent unfinished slice.\n\nObserved integration checks on final head, sequential:\n- TZ=UTC npm test: exit 0, 6 tests passed, 0 failed.\n- TZ=Asia/Tokyo npm test: exit 0, 6 tests passed, 0 failed.\n- TZ=America/Los_Angeles npm test: exit 0, 6 tests passed, 0 failed.\n- env -u TZ npm test: exit 0, 6 tests passed, 0 failed.\n- git diff --check baseline..HEAD: exit 0.\n- Final diff restricted to render.js, test/render.test.js, .mo/vault/subjects.txt, INDEX.md and site-official-time-zone.md; protected-file diff empty.\n\nBoundary review: articles.js:2-4 UTC publishedAt producer -> render.js:11 lookup -> render.js:13-18 explicit zone/locale formatting -> render.js:19 HTML -> server.js:8 invocation -> server.js:10 unchanged response body. test/render.test.js:21-35 exercises this renderer with real articles and asserts exact full HTML/date placement. No HTTP listener started, per brief. Developer baseline red: three new tests fail for missing Published paragraph. Developer mutation evidence: UTC formatter fails field-notes; runtime-local formatter fails field-notes and year-in-review in Tokyo. These failures were read to their date-boundary cause, not dismissed.\n\nVault filed and used: site-official-time-zone (decisions/site), plus CTO-defined site subject and generated index. Reviewed note matches user decision 2026-10-20. I opened and applied it to review; developer evidence matches its actual contract. Proposed extra testing-rule note was reviewed but not filed: its useful general test-design observation is retained as learning, without expanding the site's convention notes.\nLearning: Date-zone regressions require a host-zone test whose fixture calendar day differs from the official site zone; Tokyo/UTC discriminate these fixtures, while Los Angeles and New York do not.\nRisks/limits: no known unresolved issue. HTTP-level testing intentionally excluded; server pass-through verified in code. Hardcoded expected dates must follow intentional article-fixture changes. Main merge still requires user approval through CTO.\n",
+          "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/2",
+          "branch": "operator/mo-b2d760/article-publish-date",
+          "worktree": "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-publish-date",
+          "baseline": "de380333e4818373fd8768eab860b0fb926056f5",
+          "head": "b77fadbacf475d0b0fa71d0ff7b7a3ed869a7b2d",
+          "checks": [
+            "TZ=UTC npm test: 6 passed, 0 failed, exit 0",
+            "TZ=Asia/Tokyo npm test: 6 passed, 0 failed, exit 0",
+            "TZ=America/Los_Angeles npm test: 6 passed, 0 failed, exit 0",
+            "env -u TZ npm test: 6 passed, 0 failed, exit 0",
+            "git diff --check: exit 0; final PR OPEN to main with verified head b77fadb"
+          ],
+          "source": "cli",
+          "vault_notes": [
+            "site-official-time-zone"
+          ],
+          "vault_used": [
+            "site-official-time-zone"
+          ],
+          "learning_note": "Date-zone tests need a matrix zone whose fixture calendar day differs from the site zone; Tokyo/UTC discriminate here while Los Angeles/New York do not.",
+          "artifact_dir": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0001/attempt-1",
+          "created_at": "2026-10-20T17:24:50.657795000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": 42,
+          "at": "2026-10-20T17:15:20.463320000Z",
+          "kind": "assign",
+          "task_id": "T0001",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "Show article publish date in America/New_York",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 43,
+          "at": "2026-10-20T17:15:21.156795000Z",
+          "kind": "delivery",
+          "task_id": "T0001",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "sending",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 44,
+          "at": "2026-10-20T17:15:21.516176000Z",
+          "kind": "delivery",
+          "task_id": "T0001",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "delivered: ",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 62,
+          "at": "2026-10-20T17:24:50.677533000Z",
+          "kind": "report",
+          "task_id": "T0001",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "done: T0001 attempt 1 done. Applied updates: none (no U<n> received).\nFinal PR: https://github.com/FernandoAFaria/p2-self-test/pull/2, OPEN, base main, head operator/mo-b2d760/article-publish-date at b77fadbacf475d0b0fa71d0ff7b7a3ed869a7b2d. Not merged into main.\nBaseline: de380333e4818373fd8768eab860b0fb926056f5. Integration worktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-publish-date.\n\nBehavior: one Published en-US long-date paragraph directly under the article title before body. first-look October 1, field-notes October 7 (UTC October 8), year-in-review October 15, 2026. Named constant America/New_York and explicit Intl locale/timeZone. UTC article data, index, server, package/dependencies unchanged.\n\nDecomposition: one developer, Arya, owned renderer and regression tests because this is one small coherent behavior. Manager curated only the vault subject/decision and reviewed/integrated. T0002 PR #1 verified correct base/head, reviewed by diff, score 100/100 (four scripted checks and both rubric items 5/5), merged only into feature at b77fadb, then accepted. Both worktrees clean. No independent unfinished slice.\n\nObserved integration checks on final head, sequential:\n- TZ=UTC npm test: exit 0, 6 tests passed, 0 failed.\n- TZ=Asia/Tokyo npm test: exit 0, 6 tests passed, 0 failed.\n- TZ=America/Los_Angeles npm test: exit 0, 6 tests passed, 0 failed.\n- env -u TZ npm test: exit 0, 6 tests passed, 0 failed.\n- git diff --check baseline..HEAD: exit 0.\n- Final diff restricted to render.js, test/render.test.js, .mo/vault/subjects.txt, INDEX.md and site-official-time-zone.md; protected-file diff empty.\n\nBoundary review: articles.js:2-4 UTC publishedAt producer -> render.js:11 lookup -> render.js:13-18 explicit zone/locale formatting -> render.js:19 HTML -> server.js:8 invocation -> server.js:10 unchanged response body. test/render.test.js:21-35 exercises this renderer with real articles and asserts exact full HTML/date placement. No HTTP listener started, per brief. Developer baseline red: three new tests fail for missing Published paragraph. Developer mutation evidence: UTC formatter fails field-notes; runtime-local formatter fails field-notes and year-in-review in Tokyo. These failures were read to their date-boundary cause, not dismissed.\n\nVault filed and used: site-official-time-zone (decisions/site), plus CTO-defined site subject and generated index. Reviewed note matches user decision 2026-10-20. I opened and applied it to review; developer evidence matches its actual contract. Proposed extra testing-rule note was reviewed but not filed: its useful general test-design observation is retained as learning, without expanding the site's convention notes.\nLearning: Date-zone regressions require a host-zone test whose fixture calendar day differs from the official site zone; Tokyo/UTC discriminate these fixtures, while Los Angeles and New York do not.\nRisks/limits: no known unresolved issue. HTTP-level testing intentionally excluded; server pass-through verified in code. Hardcoded expected dates must follow intentional article-fixture changes. Main merge still requires user approval through CTO.\n",
+          "notify": "mo-b2d760-tyrion",
+          "notify_state": "delivered",
+          "notified_at": "2026-10-20T17:24:51.188533000Z",
+          "notify_detail": ""
+        },
+        {
+          "id": 65,
+          "at": "2026-10-20T17:25:24.874707000Z",
+          "kind": "ready",
+          "task_id": "T0001",
+          "n": 1,
+          "seat": "mo-b2d760-tyrion",
+          "message": "Article pages show \"Published <Month D, YYYY>\" under the title, in America/New_York (named constant, Intl en-US with explicit timeZone). first-look Oct 1, field-notes Oct 7 (UTC Oct 8), year-in-review Oct 15, 2026. Index, articles.js, server.js unchanged; no deps.\nCTO-verified at b77fadb in an isolated worktree: npm test 6/6 under TZ=UTC, Asia/Tokyo, America/Los_Angeles, Europe/London and default; mutating the zone to UTC fails the field-notes test. Diff also adds the vault decision note (.mo/vault).\nRisks: no HTTP-level test (by design; server passes HTML through); expected dates hard-coded to current fixtures.\n",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        }
+      ],
+      "scorecard": null
+    },
+    "T0002": {
+      "task": {
+        "id": "T0002",
+        "parent_id": "T0001",
+        "title": "Render article publish dates in official zone with regression coverage",
+        "kind": "change",
+        "brief": "Skill dir: /Users/ffaria/.claude/skills/main-operator (absolute). You are developer mo-b2d760-arya reporting to mo-b2d760-jon-snow. Use assigned developer core; never address user or merge PR.\nRepository: /Users/ffaria/projects/p2-self-test. Remote: origin (FernandoAFaria/p2-self-test).\nWorktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-date-arya. Branch: operator/mo-b2d760/article-date-arya. Baseline SHA: 4f5fb1e. PR base: operator/mo-b2d760/article-publish-date.\nGoal: Show each article publish date in America/New_York and protect behavior with real-data renderer regression. Create isolated worktree from baseline, never edit source checkout. Open PR into feature branch above.\nOwned files: render.js; test/render.test.js or one new file under test/. No others.\nContracts and dependencies: renderArticle(slug) keeps HTML|null. articles.js UTC ISO publishedAt stays unchanged. Named constant holding IANA America/New_York; built-in Intl with explicit en-US and timeZone. HTML adds exactly one paragraph directly after title before body: <p>Published October 7, 2026</p>. server.js passes HTML through unchanged. No other developer dependency.\nAcceptance criteria:\n- first-look: Published October 1, 2026; field-notes: Published October 7, 2026 (UTC October 8); year-in-review: Published October 15, 2026.\n- Test renderArticle using real articles, assert exact date lines and position between title/body. Show test fails baseline before implementing, then passes; catches UTC/local date derivation across matrix.\n- npm test passes TZ=UTC, TZ=Asia/Tokyo, TZ=America/Los_Angeles, and no TZ override; report each observed result/count.\n- The manager has already committed the CTO-defined site subject and reviewed decision note in your baseline; preserve these files unchanged.\n- Read site-official-time-zone via mo vault show in your worktree. Apply that existing decision. Review for useful non-duplicate learning; do not propose a duplicate or write vault files.\nNon-goals: no articles.js, index renderer changes, server.js, package.json, dependencies, config system, HTTP tests, time of day, zone label, extra markup or unrelated cleanup. Match small ESM template-string style.\nChecks: npm test four times sequentially with above environments (env -u TZ npm test for unset). No server import/start or port 3000 listener. No build/install required. No additional expensive-command limits found; serialize matrix. Before pushing trace producer -> renderer -> consumer with file:line; renderer test is authorized boundary. Read red signals to root cause.\nReport via mo task report using assigned subtask ID/attempt/from seat, worktree/baseline/head/branch/real PR URL/checks, file:line evidence, Proposed vault notes, notes actually used (if none say none), honest learning. The reviewed site-official-time-zone note is in baseline; private Scout rollback note does not apply. Never invent --vault-used.\n",
+        "seat": "mo-b2d760-arya",
+        "created_by": "mo-b2d760-jon-snow",
+        "status": "accepted",
+        "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/1",
+        "pr_state": "merged",
+        "created_at": "2026-10-20T17:18:31.754289000Z",
+        "updated_at": "2026-10-20T17:23:29.654575000Z"
+      },
+      "attempts": [
+        {
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "note": "",
+          "delivery": "delivered",
+          "delivery_detail": "",
+          "prompt_path": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0002/attempt-1/prompt.md",
+          "recall": {
+            "knowledge_ref": "operator/mo-b2d760/article-publish-date",
+            "category": "",
+            "subjects": [
+              "site"
+            ],
+            "source": "git:operator/mo-b2d760/article-publish-date",
+            "revision": "4f5fb1eb4c780037aacc4e7b3d4f38754566f45d",
+            "query": "",
+            "notes": [
+              {
+                "name": "site-official-time-zone",
+                "layer": "repo",
+                "source": "git:operator/mo-b2d760/article-publish-date",
+                "revision": "4f5fb1eb4c780037aacc4e7b3d4f38754566f45d",
+                "category": "decisions/site"
+              }
+            ],
+            "warnings": [],
+            "problems": []
+          },
+          "created_at": "2026-10-20T17:18:31.795793000Z",
+          "updated_at": "2026-10-20T17:22:31.752057000Z"
+        }
+      ],
+      "fresh_sessions": [
+        {
+          "task_id": "T0002",
+          "attempt": 1,
+          "seat": "mo-b2d760-arya",
+          "keep_context": false,
+          "state": "verified",
+          "detail": "fresh session: cleared (claude /clear, session verified)",
+          "kind": "claude",
+          "command": "/clear",
+          "pane_id": "wQ:pR",
+          "terminal_id": "term_65e48a4759f349a",
+          "previous_session": "be0358de-9704-4a82-9b4d-f77f7a97bd55",
+          "deadline": "2026-10-20T17:19:32.167484000Z"
+        }
+      ],
+      "reports": [
+        {
+          "task_id": "T0002",
+          "n": 1,
+          "from": "mo-b2d760-arya",
+          "status": "done",
+          "summary": "T0002 attempt 1 \u2014 done. PR https://github.com/FernandoAFaria/p2-self-test/pull/1 (base operator/mo-b2d760/article-publish-date, head 6255963).\n\nApplied updates: none (no U<n> received; inbox and task show checked before push).\n\n## Result\n- renderArticle(slug) adds `<p>Published <date></p>` directly after the title and before the body. Date uses Intl en-US long date with timeZone America/New_York from the stored UTC publishedAt.\n- first-look \u2192 October 1, 2026; field-notes \u2192 October 7, 2026 (UTC October 8); year-in-review \u2192 October 15, 2026.\n- articles.js, server.js, package.json, and index renderer unchanged.\n\n## File:line evidence (producer \u2192 renderer \u2192 consumer)\n- Producer: articles.js:2-4 publishedAt UTC ISO, unchanged.\n- Renderer: render.js:8 SITE_TIME_ZONE = \"America/New_York\"; render.js:10-19 renderArticle; render.js:14 timeZone; render.js:19 HTML with the single Published paragraph.\n- Consumer: server.js:8 calls renderArticle; server.js:10 res.end(html) passes through unchanged.\n- Test (authorized boundary): test/render.test.js:21-25 hardcoded expected dates; :27-35 real-article loop asserting exact article markup (title \u2192 Published line \u2192 body).\n\n## Checks (observed)\n- Baseline red: new tests against pre-change render.js \u2192 6 tests, 3 pass, 3 fail; each failure is the missing Published paragraph (AssertionError on exact string).\n- Final code, npm test run sequentially:\n  - TZ=UTC: 6 tests, 6 pass, 0 fail, exit 0\n  - TZ=Asia/Tokyo: 6 tests, 6 pass, 0 fail, exit 0\n  - TZ=America/Los_Angeles: 6 tests, 6 pass, 0 fail, exit 0\n  - env -u TZ (unset): 6 tests, 6 pass, 0 fail, exit 0. Host zone is America/New_York (EDT), so this run is the site zone and cannot detect local-zone derivation.\n- Mutation checks (temporary, restored byte-identical, not committed):\n  - Local-zone derivation (timeZone removed): TZ=America/Los_Angeles 6/6 pass (not discriminating); TZ=Asia/Tokyo 4 pass / 2 fail (field-notes, year-in-review). Under TZ=UTC it matches the local output, so it fails field-notes by equivalence; not run.\n  - UTC derivation (timeZone \"UTC\"): TZ=UTC 5 pass / 1 fail (field-notes). Not run under other TZs; explicit timeZone makes host TZ irrelevant, so the same failure follows by reasoning.\n- No server import/start; no port 3000 listener; no install or build.\n\n## Risks\n- A host in America/New_York cannot detect local-zone derivation; the Asia/Tokyo run is the discriminating one.\n- Expected dates are hardcoded against the articles.js fixtures; a fixture publishedAt change requires updating the expected line.\n- No HTTP-level test (out of scope); server pass-through verified by reading server.js:10.\n\n## Proposed vault notes\n- Type: rules. Subject: site. New name: site-date-display-test-zones. Merge target: none (site-official-time-zone covers the zone and display format, not test matrix design).\n  Rule: Tests for zone-dependent date output must include a matrix zone whose calendar date differs from the site zone for the fixtures. For the current fixtures that means Asia/Tokyo or UTC, not America/Los_Angeles or a New York host.\n  Why: A runtime-local date derivation passes whenever the local zone gives the same calendar day as the site zone. For these fixtures LA matches New York, so LA-only or New York-host runs cannot catch it.\n  Evidence: test/render.test.js:21-35.\n\n## Vault used\n- site-official-time-zone (applied: America/New_York, en-US long date, Published prefix, no time of day or zone label, UTC timestamps unchanged).\n\n## Learning\n- Zone-dependent date tests need a matrix zone whose calendar date differs from the site zone for the fixtures (Tokyo here); LA and a New York host cannot detect local-zone derivation.\n",
+          "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/1",
+          "branch": "operator/mo-b2d760/article-date-arya",
+          "worktree": "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-date-arya",
+          "baseline": "4f5fb1eb4c780037aacc4e7b3d4f38754566f45d",
+          "head": "6255963b5ecae4fa6bfcf16786a0d8bee0adb891",
+          "checks": [
+            "utc: TZ=UTC npm test 6 tests, 6 pass, 0 fail, exit 0",
+            "tokyo: TZ=Asia/Tokyo npm test 6 tests, 6 pass, 0 fail, exit 0",
+            "los-angeles: TZ=America/Los_Angeles npm test 6 tests, 6 pass, 0 fail, exit 0",
+            "unset-tz: env -u TZ npm test 6 tests, 6 pass, 0 fail, exit 0 (host zone America/New_York EDT)",
+            "baseline red: new tests on pre-change render.js 6 tests, 3 pass, 3 fail (missing Published paragraph)",
+            "mutation local-zone (timeZone removed): TZ=America/Los_Angeles 6/6 pass; TZ=Asia/Tokyo 4 pass, 2 fail (field-notes, year-in-review)",
+            "mutation UTC (timeZone UTC): TZ=UTC 5 pass, 1 fail (field-notes)"
+          ],
+          "source": "cli",
+          "vault_used": [
+            "site-official-time-zone"
+          ],
+          "learning_note": "Zone-dependent date tests need a matrix zone whose calendar date differs from the site zone for the fixtures (Tokyo here); LA and a New York host cannot detect local-zone derivation.",
+          "artifact_dir": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0002/attempt-1",
+          "created_at": "2026-10-20T17:22:31.741069000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": 47,
+          "at": "2026-10-20T17:18:31.754462000Z",
+          "kind": "link",
+          "task_id": "T0002",
+          "n": 0,
+          "seat": "mo-b2d760-arya",
+          "message": "parent T0001",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 48,
+          "at": "2026-10-20T17:18:31.797136000Z",
+          "kind": "assign",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "Render article publish dates in official zone with regression coverage",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 49,
+          "at": "2026-10-20T17:18:31.797428000Z",
+          "kind": "scorecard",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "scorecard v1",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 50,
+          "at": "2026-10-20T17:18:32.164821000Z",
+          "kind": "delivery",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "sending",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 51,
+          "at": "2026-10-20T17:18:32.168452000Z",
+          "kind": "delivery",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "clearing: fresh session: clearing (claude /clear), awaiting session verification",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 53,
+          "at": "2026-10-20T17:18:33.218493000Z",
+          "kind": "delivery",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "sending: fresh session: cleared (claude /clear, session verified)",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 54,
+          "at": "2026-10-20T17:18:33.251877000Z",
+          "kind": "delivery",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "delivered: ",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 56,
+          "at": "2026-10-20T17:22:31.752094000Z",
+          "kind": "report",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "done: T0002 attempt 1 \u2014 done. PR https://github.com/FernandoAFaria/p2-self-test/pull/1 (base operator/mo-b2d760/article-publish-date, head 6255963).\n\nApplied updates: none (no U<n> received; inbox and task show checked before push).\n\n## Result\n- renderArticle(slug) adds `<p>Published <date></p>` directly after the title and before the body. Date uses Intl en-US long date with timeZone America/New_York from the stored UTC publishedAt.\n- first-look \u2192 October 1, 2026; field-notes \u2192 October 7, 2026 (UTC October 8); year-in-review \u2192 October 15, 2026.\n- articles.js, server.js, package.json, and index renderer unchanged.\n\n## File:line evidence (producer \u2192 renderer \u2192 consumer)\n- Producer: articles.js:2-4 publishedAt UTC ISO, unchanged.\n- Renderer: render.js:8 SITE_TIME_ZONE = \"America/New_York\"; render.js:10-19 renderArticle; render.js:14 timeZone; render.js:19 HTML with the single Published paragraph.\n- Consumer: server.js:8 calls renderArticle; server.js:10 res.end(html) passes through unchanged.\n- Test (authorized boundary): test/render.test.js:21-25 hardcoded expected dates; :27-35 real-article loop asserting exact article markup (title \u2192 Published line \u2192 body).\n\n## Checks (observed)\n- Baseline red: new tests against pre-change render.js \u2192 6 tests, 3 pass, 3 fail; each failure is the missing Published paragraph (AssertionError on exact string).\n- Final code, npm test run sequentially:\n  - TZ=UTC: 6 tests, 6 pass, 0 fail, exit 0\n  - TZ=Asia/Tokyo: 6 tests, 6 pass, 0 fail, exit 0\n  - TZ=America/Los_Angeles: 6 tests, 6 pass, 0 fail, exit 0\n  - env -u TZ (unset): 6 tests, 6 pass, 0 fail, exit 0. Host zone is America/New_York (EDT), so this run is the site zone and cannot detect local-zone derivation.\n- Mutation checks (temporary, restored byte-identical, not committed):\n  - Local-zone derivation (timeZone removed): TZ=America/Los_Angeles 6/6 pass (not discriminating); TZ=Asia/Tokyo 4 pass / 2 fail (field-notes, year-in-review). Under TZ=UTC it matches the local output, so it fails field-notes by equivalence; not run.\n  - UTC derivation (timeZone \"UTC\"): TZ=UTC 5 pass / 1 fail (field-notes). Not run under other TZs; explicit timeZone makes host TZ irrelevant, so the same failure follows by reasoning.\n- No server import/start; no port 3000 listener; no install or build.\n\n## Risks\n- A host in America/New_York cannot detect local-zone derivation; the Asia/Tokyo run is the discriminating one.\n- Expected dates are hardcoded against the articles.js fixtures; a fixture publishedAt change requires updating the expected line.\n- No HTTP-level test (out of scope); server pass-through verified by reading server.js:10.\n\n## Proposed vault notes\n- Type: rules. Subject: site. New name: site-date-display-test-zones. Merge target: none (site-official-time-zone covers the zone and display format, not test matrix design).\n  Rule: Tests for zone-dependent date output must include a matrix zone whose calendar date differs from the site zone for the fixtures. For the current fixtures that means Asia/Tokyo or UTC, not America/Los_Angeles or a New York host.\n  Why: A runtime-local date derivation passes whenever the local zone gives the same calendar day as the site zone. For these fixtures LA matches New York, so LA-only or New York-host runs cannot catch it.\n  Evidence: test/render.test.js:21-35.\n\n## Vault used\n- site-official-time-zone (applied: America/New_York, en-US long date, Published prefix, no time of day or zone label, UTC timestamps unchanged).\n\n## Learning\n- Zone-dependent date tests need a matrix zone whose calendar date differs from the site zone for the fixtures (Tokyo here); LA and a New York host cannot detect local-zone derivation.\n",
+          "notify": "mo-b2d760-jon-snow",
+          "notify_state": "delivered",
+          "notified_at": "2026-10-20T17:22:32.222192000Z",
+          "notify_detail": ""
+        },
+        {
+          "id": 58,
+          "at": "2026-10-20T17:22:55.232835000Z",
+          "kind": "score_grade",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "scope-and-contract 5/5: Verified diff and PR head/base: only renderer and tests; explicit locale/zone; exact paragraph placement; protected files unchanged.",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 59,
+          "at": "2026-10-20T17:22:56.561632000Z",
+          "kind": "score_grade",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-jon-snow",
+          "message": "regression-and-evidence 5/5: Exact real-data HTML assertions cover all three dates/placement; baseline red and full boundary evidence reported; four scripted TZ checks passed; learning is specific and accurate.",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 60,
+          "at": "2026-10-20T17:23:27.782836000Z",
+          "kind": "pr",
+          "task_id": "T0002",
+          "n": 0,
+          "seat": "mo-b2d760-arya",
+          "message": "merged https://github.com/FernandoAFaria/p2-self-test/pull/1",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 61,
+          "at": "2026-10-20T17:23:29.654745000Z",
+          "kind": "accept",
+          "task_id": "T0002",
+          "n": 1,
+          "seat": "mo-b2d760-arya",
+          "message": "accepted",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        }
+      ],
+      "scorecard": {
+        "task_id": "T0002",
+        "version": 1,
+        "card": {
+          "threshold": 100,
+          "checks": [
+            {
+              "name": "utc",
+              "command": [
+                "env",
+                "TZ=UTC",
+                "npm",
+                "--prefix",
+                "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-date-arya",
+                "test"
+              ],
+              "weight": 20,
+              "timeout": "60s"
+            },
+            {
+              "name": "tokyo",
+              "command": [
+                "env",
+                "TZ=Asia/Tokyo",
+                "npm",
+                "--prefix",
+                "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-date-arya",
+                "test"
+              ],
+              "weight": 20,
+              "timeout": "60s"
+            },
+            {
+              "name": "los-angeles",
+              "command": [
+                "env",
+                "TZ=America/Los_Angeles",
+                "npm",
+                "--prefix",
+                "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-date-arya",
+                "test"
+              ],
+              "weight": 20,
+              "timeout": "60s"
+            },
+            {
+              "name": "unset-tz",
+              "command": [
+                "env",
+                "-u",
+                "TZ",
+                "npm",
+                "--prefix",
+                "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-date-arya",
+                "test"
+              ],
+              "weight": 20,
+              "timeout": "60s"
+            }
+          ],
+          "rubric": [
+            {
+              "name": "scope-and-contract",
+              "weight": 10,
+              "description": "Owned files only; named IANA zone and explicit Intl en-US; one date paragraph between title/body; no data/index/server/package changes.",
+              "scale": 5
+            },
+            {
+              "name": "regression-and-evidence",
+              "weight": 10,
+              "description": "Exact real-data dates/placement; baseline red; four TZ results; full boundary file:line evidence; honest learning and useful proposed note.",
+              "scale": 5
+            }
+          ]
+        },
+        "set_by": "mo-b2d760-jon-snow",
+        "set_at": "2026-10-20T17:18:31.797354000Z",
+        "run": {
+          "n": 1,
+          "scorecard_n": 1,
+          "attempt": 1,
+          "head": "6255963b5ecae4fa6bfcf16786a0d8bee0adb891",
+          "trigger": "report",
+          "state": "done",
+          "detail": "",
+          "requested_by": "mo-b2d760-arya",
+          "alert": "",
+          "created_at": "2026-10-20T17:22:31.751137000Z",
+          "started_at": "2026-10-20T17:22:32.147372000Z",
+          "finished_at": "2026-10-20T17:22:37.260348000Z"
+        },
+        "checks": [
+          {
+            "name": "utc",
+            "weight": 20,
+            "timeout": "60s",
+            "state": "pass",
+            "exit_code": 0,
+            "duration_ms": 1479,
+            "output_tail": "\n> p2-article-site@1.0.0 test\n> node --test\n\n\u2714 index lists every article (0.405708ms)\n\u2714 article page shows title and body (23.827167ms)\n\u2714 unknown article returns null (0.108292ms)\n\u2714 article first-look shows publish date in America/New_York between title and body (2.01725ms)\n\u2714 article field-notes shows publish date in America/New_York between title and body (0.116ms)\n\u2714 article year-in-review shows publish date in America/New_York between title and body (0.255875ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 115.103959\n",
+            "detail": "",
+            "started_at": "2026-10-20T17:22:32.147372000Z",
+            "finished_at": "2026-10-20T17:22:33.629611000Z"
+          },
+          {
+            "name": "tokyo",
+            "weight": 20,
+            "timeout": "60s",
+            "state": "pass",
+            "exit_code": 0,
+            "duration_ms": 1072,
+            "output_tail": "\n> p2-article-site@1.0.0 test\n> node --test\n\n\u2714 index lists every article (0.5735ms)\n\u2714 article page shows title and body (94.300041ms)\n\u2714 unknown article returns null (0.136042ms)\n\u2714 article first-look shows publish date in America/New_York between title and body (0.876084ms)\n\u2714 article field-notes shows publish date in America/New_York between title and body (0.109833ms)\n\u2714 article year-in-review shows publish date in America/New_York between title and body (0.141333ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 192.114458\n",
+            "detail": "",
+            "started_at": "2026-10-20T17:22:33.635171000Z",
+            "finished_at": "2026-10-20T17:22:34.710301000Z"
+          },
+          {
+            "name": "los-angeles",
+            "weight": 20,
+            "timeout": "60s",
+            "state": "pass",
+            "exit_code": 0,
+            "duration_ms": 1192,
+            "output_tail": "\n> p2-article-site@1.0.0 test\n> node --test\n\n\u2714 index lists every article (0.9285ms)\n\u2714 article page shows title and body (15.835292ms)\n\u2714 unknown article returns null (0.230292ms)\n\u2714 article first-look shows publish date in America/New_York between title and body (0.779791ms)\n\u2714 article field-notes shows publish date in America/New_York between title and body (0.107625ms)\n\u2714 article year-in-review shows publish date in America/New_York between title and body (0.082958ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 139.211917\n",
+            "detail": "",
+            "started_at": "2026-10-20T17:22:34.712358000Z",
+            "finished_at": "2026-10-20T17:22:35.906916000Z"
+          },
+          {
+            "name": "unset-tz",
+            "weight": 20,
+            "timeout": "60s",
+            "state": "pass",
+            "exit_code": 0,
+            "duration_ms": 1348,
+            "output_tail": "\n> p2-article-site@1.0.0 test\n> node --test\n\n\u2714 index lists every article (0.423667ms)\n\u2714 article page shows title and body (13.165875ms)\n\u2714 unknown article returns null (0.123709ms)\n\u2714 article first-look shows publish date in America/New_York between title and body (5.398ms)\n\u2714 article field-notes shows publish date in America/New_York between title and body (0.2615ms)\n\u2714 article year-in-review shows publish date in America/New_York between title and body (0.200625ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 237.312375\n",
+            "detail": "",
+            "started_at": "2026-10-20T17:22:35.909497000Z",
+            "finished_at": "2026-10-20T17:22:37.260121000Z"
+          }
+        ],
+        "grades": [
+          {
+            "item": "scope-and-contract",
+            "weight": 10,
+            "scale": 5,
+            "description": "Owned files only; named IANA zone and explicit Intl en-US; one date paragraph between title/body; no data/index/server/package changes.",
+            "grade": 5,
+            "note": "Verified diff and PR head/base: only renderer and tests; explicit locale/zone; exact paragraph placement; protected files unchanged.",
+            "by": "mo-b2d760-jon-snow",
+            "at": "2026-10-20T17:22:55.232758000Z"
+          },
+          {
+            "item": "regression-and-evidence",
+            "weight": 10,
+            "scale": 5,
+            "description": "Exact real-data dates/placement; baseline red; four TZ results; full boundary file:line evidence; honest learning and useful proposed note.",
+            "grade": 5,
+            "note": "Exact real-data HTML assertions cover all three dates/placement; baseline red and full boundary evidence reported; four scripted TZ checks passed; learning is specific and accurate.",
+            "by": "mo-b2d760-jon-snow",
+            "at": "2026-10-20T17:22:56.561587000Z"
+          }
+        ],
+        "points": 100,
+        "max": 100,
+        "percent": 100,
+        "attainable": 100,
+        "threshold": 100,
+        "verdict": "pass",
+        "alerts": []
+      }
+    }
+  }
+}

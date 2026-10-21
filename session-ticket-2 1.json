@@ -1,0 +1,637 @@
+{
+  "repository": "/Users/ffaria/projects/p2-self-test",
+  "remote": "FernandoAFaria/p2-self-test (GitHub)",
+  "team": "mo-b2d760",
+  "cto": "mo-b2d760-tyrion (Claude Opus, max effort)",
+  "baseline_main": "de380333e4818373fd8768eab860b0fb926056f5",
+  "sources": [
+    "mo task show <id> --json",
+    "mo events --task <id>",
+    ".git/main-operator/CURRENT.md, briefs/, managers/*.md",
+    "CTO session transcript (questions/answers, CTO review steps)"
+  ],
+  "note_on_timestamps": "mo events carry UTC timestamps; CTO-only steps (grilling, review) are ordered but untimestamped unless mo recorded them.",
+  "ticket": "Ticket 2: article author byline",
+  "status": "CTO-reviewed and marked ready; PR #4 OPEN, awaiting user merge OK (not merged); will conflict with PR #2",
+  "user_request": "Show the article's author on each article page, in the site's standard author format. Open a pull request with the change and a test.",
+  "cto_workflow": [
+    {
+      "step": 1,
+      "action": "Discovery: searched repo, git history, vault and GitHub issues for an author format",
+      "result": "None defined; data has authorName + authorTitle"
+    },
+    {
+      "step": 2,
+      "action": "Logged task 2 in CURRENT.md as grilling"
+    },
+    {
+      "step": 3,
+      "action": "Asked user questions",
+      "questions": [
+        {
+          "question": "What is the site's standard author format?",
+          "options": [
+            "By Name, Title",
+            "By Name",
+            "Name | Title"
+          ],
+          "answer": "By Name, Title: <p>By Dana Reyes, Senior Editor</p>"
+        },
+        {
+          "question": "PR #2 isn't merged and edits the same render.js line. Where should the author change start from?",
+          "options": [
+            "Stack on PR #2 (Recommended)",
+            "Merge #2 first",
+            "Independent from main"
+          ],
+          "answer": "Independent from main"
+        },
+        {
+          "question": "Where does the author line go on the page?",
+          "options": [
+            "Under the date (Recommended)",
+            "Above the date"
+          ],
+          "answer": "Under the date"
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "action": "Wrote brief briefs/article-author.md (byline right after h1 on this branch; final order h1, Published, By, body; identical 'site' subject line; vault note)"
+    },
+    {
+      "step": 5,
+      "action": "Hand-off: mo task assign --to mo-b2d760-khaleesi --kind change",
+      "task_id": "T0003",
+      "at": "2026-10-20T17:29:19Z"
+    },
+    {
+      "step": 6,
+      "action": "Received done report from khaleesi",
+      "at": "2026-10-20T17:36:15Z"
+    },
+    {
+      "step": 7,
+      "action": "CTO review: PR #4 base main / head ee721c8; read diff (render.js, test/render.test.js, .mo/vault/*); npm test 6/6 in isolated worktree"
+    },
+    {
+      "step": 8,
+      "action": "mo task ready T0003 --head ee721c852cec56008e95819cbf2cb0f859fac85a",
+      "at": "2026-10-20T17:36:38Z"
+    },
+    {
+      "step": 9,
+      "action": "Reported PR #4 to user; proposed merge order #2 then revise #4 for conflicts"
+    }
+  ],
+  "handoff_chain": [
+    {
+      "role": "CTO",
+      "seat": "mo-b2d760-tyrion",
+      "did": "Clarified, briefed, reviewed, marked ready"
+    },
+    {
+      "role": "Manager",
+      "seat": "mo-b2d760-khaleesi",
+      "model": "Codex GPT-6.1-Sol (high)",
+      "task": "T0003",
+      "did": "Decomposition (one owner), scorecard review, merged PR #3 into feature branch, filed vault note article-author-format (commit 3c0ff68), opened final PR #4"
+    },
+    {
+      "role": "Developer",
+      "seat": "mo-b2d760-jorah",
+      "model": "Claude Haiku (xhigh)",
+      "task": "T0004",
+      "did": "Implemented byline + exact-HTML tests; PR #3 into feature branch; scorecard 100%"
+    }
+  ],
+  "pull_requests": [
+    {
+      "number": 3,
+      "url": "https://github.com/FernandoAFaria/p2-self-test/pull/3",
+      "from": "operator/mo-b2d760/article-author-jorah",
+      "into": "operator/mo-b2d760/article-author",
+      "head": "c2c5853a5a0ef4b406d825988298537cd8348bb3",
+      "state": "MERGED (by manager into feature branch)"
+    },
+    {
+      "number": 4,
+      "url": "https://github.com/FernandoAFaria/p2-self-test/pull/4",
+      "from": "operator/mo-b2d760/article-author",
+      "into": "main",
+      "head": "ee721c852cec56008e95819cbf2cb0f859fac85a",
+      "state": "OPEN, awaiting user OK"
+    }
+  ],
+  "manager_brief": "Repository: /Users/ffaria/projects/p2-self-test. Remote: origin (FernandoAFaria/p2-self-test on GitHub; gh is authenticated). PR base for the final PR: main. Baseline SHA: de380333e4818373fd8768eab860b0fb926056f5 (= origin/main).\nFeature branch: operator/mo-b2d760/article-author, cut from the baseline SHA. Manager worktree path: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author. Put developer worktrees in /Users/ffaria/projects/p2-self-test/.claude/worktrees with unique mo-b2d760-* names (already excluded locally; no .gitignore changes). Never edit the user's checkout at /Users/ffaria/projects/p2-self-test; preserve all existing worktrees and user files.\nSkill dir: /Users/ffaria/.claude/skills/main-operator (absolute). Your log: /Users/ffaria/projects/p2-self-test/.git/main-operator/managers/mo-b2d760-khaleesi.md.\n\nAsk (user's words): \"Show the article's author on each article page, in the site's standard author format. Open a pull request with the change and a test.\"\n\nUser decisions (2026-10-20), settled:\n- Standard author format: \"By <authorName>, <authorTitle>\" as its own paragraph, e.g. <p>By Dana Reyes, Senior Editor</p>, from the existing authorName/authorTitle fields in articles.js.\n- Placement: under the publish date. Another open PR (#2, branch operator/mo-b2d760/article-publish-date, not on main) adds <p>Published ...</p> right after the <h1>. The user chose to build this change independently from main, so on this branch the byline goes directly after the <h1> and before the body. Do not base on or copy PR #2. When both are combined the order must be: h1, Published line, By line, body.\n\nScope: renderArticle in render.js, plus tests in test/ (extend test/render.test.js). Expected diff: render.js, test/, and the vault files below.\nConstraints: no new dependencies; do not change articles.js, the index page, server.js or package.json; match existing style; existing tests keep passing. Test through renderArticle with the real articles data (no HTTP test: server.js hard-codes port 3000 and listens on import).\nNon-goals: author on the index page; author pages/links; markup beyond the one byline paragraph.\nAcceptance:\n1. Pages show exactly: first-look \"By Dana Reyes, Senior Editor\"; field-notes \"By Sam Patel, Staff Writer\"; year-in-review \"By Lee Chen, Managing Editor\", directly after the <h1> and before the body.\n2. A test asserts the exact full article HTML for every article (so position and format are pinned).\n3. npm test passes; report the observed result.\n4. One PR from operator/mo-b2d760/article-author into main, opened with gh. Do not merge it; merging into main needs the user's OK through the CTO.\nVault: the subject \"site\" (scope: \"site-wide conventions and page behavior (official time zone, date display, article and index rendering)\") is defined by the CTO but its subjects.txt line exists only on PR #2's branch; add that exact identical line to .mo/vault/subjects.txt on this branch. Record in the vault (decisions/site): the site's standard author format is \"By <authorName>, <authorTitle>\" in its own paragraph after the publish date line (user decision 2026-10-20). Why: the repo defined no author format. Expect a .mo/vault conflict with PR #2 at merge time; the CTO will coordinate.\nDecomposition decision required: before dispatching, record how you split this among your developers (slices, owners, shared interface, real dependencies with their unblock criterion, non-goals, checks), or say why one owner is the right split. Dispatch ready slices in parallel. Obey the project's limits for expensive commands.\nFinish with mo task report for this task: final PR URL, head SHA, checks with observed results, risks, vault notes filed (--vault-note) and used (--vault-used), and a learning note or \"no new durable learning: <reason>\"; or blocked with the decision needed.\n",
+  "cto_ready_summary": "Article pages show \"<p>By <authorName>, <authorTitle></p>\" directly after the h1 and before the body (built from main; PR #2's Published line will sit between them when combined). Index, articles.js, server.js unchanged; no deps.\nCTO-verified at ee721c8 in an isolated worktree: npm test 6/6; tests pin exact full HTML for all three articles. Adds vault note article-author-format (decisions/site) and the same subjects.txt line as PR #2.\nRisks: conflicts with PR #2 in render.js, test/render.test.js and .mo/vault/INDEX.md; whichever merges second needs a revise.\n",
+  "manager_log": "# mo-b2d760-khaleesi \u00b7 hand-off T0003: article author byline\nTeam mo-b2d760 \u00b7 CTO mo-b2d760-tyrion \u00b7 Updated 2026-10-20 13:36\nFeature branch operator/mo-b2d760/article-author from main @ de380333e4818373fd8768eab860b0fb926056f5 \u00b7 Final PR https://github.com/FernandoAFaria/p2-self-test/pull/4\n\n## Ask\nShow exact By <authorName>, <authorTitle> paragraph on every article after h1 on this independent branch; after Published when PR #2 combines. Exact full HTML tests for all real articles; npm test; final PR to main, never merge main. No dependencies or articles/index/server/package changes. Record decisions/site note and identical CTO-defined site subject line; expect vault conflict with PR #2.\n\n## Slices\n| Slice | Developer | Task | Status | Depends on (unblock criterion) |\n| --- | --- | --- | --- | --- |\n| Renderer and real-data full HTML regression | mo-b2d760-jorah | T0004 | accepted | none; feature push verified |\n| Review, integrate, curate vault, final PR | mo-b2d760-khaleesi | T0003 | reported done | all acceptance verified |\n\nOne implementation owner: render.js and test/render.test.js share one tiny contract; splitting adds no useful parallel slice. Shared contract: renderArticle(slug), real articles, exact byline after h1/before body; unknown stays null. No dependency on PR #2. Jorah owns renderer/tests only; manager vault only. Checks: baseline-red regression, npm test green, exact three HTML outputs, scope/PR provenance and full boundary trace. No expensive-command cap found; serialize npm test; no server/import or install.\n\n## Open PRs\n- https://github.com/FernandoAFaria/p2-self-test/pull/4 \u00b7 T0003 \u00b7 mo-b2d760-khaleesi \u00b7 OPEN verified, base main/head ee721c852cec56008e95819cbf2cb0f859fac85a; not merged\n- https://github.com/FernandoAFaria/p2-self-test/pull/3 \u00b7 T0004 \u00b7 mo-b2d760-jorah \u00b7 MERGED verified 2026-10-20T17:35:07Z into feature; scorecard 100%; T0004 accepted\n\nVault article-author-format (decisions/site), generated index, and identical subjects.txt line committed/pushed as 3c0ff68; note is <=200 words and cites renderArticle. Unrelated private Scout note was not used. Assignment scorecard validated after timeout-string and short-description corrections; no partial task created on rejected validations. No U<n> updates received. T0004 head c2c5853a5a0ef4b406d825988298537cd8348bb3 reviewed: exact HTML tests for three records; baseline 3 pass/3 intended missing-byline failures, final 6 pass; scripted check pass; two rubric items 5/5. Learning cites existing curated note accurately; no new note required. Cross-module trace checked articles.js:2-4 \u2192 render.js:1,9,11 \u2192 server.js:2,8-10; tests cross data/renderer boundary.\n\n## Next steps\n1. Await CTO review of T0003: mo task report recorded successfully with PR #4, head, checks, vault-used/note and learning evidence; no remaining implementation work.\n\nIntegrated npm test: 6 pass/0 fail; diff --check passed, protected files unchanged, subjects.txt byte-identical, clean worktree/local and origin head ee721c852cec56008e95819cbf2cb0f859fac85a. Final PR has only renderer, tests and 3 vault files; no GitHub configured checks. Risk: CTO coordinates renderer/vault conflicts with PR #2 and final heading, Published, By, body order. Main merge needs user OK.\n",
+  "mo_records": {
+    "T0003": {
+      "task": {
+        "id": "T0003",
+        "parent_id": "",
+        "title": "Show article author byline",
+        "kind": "change",
+        "brief": "Repository: /Users/ffaria/projects/p2-self-test. Remote: origin (FernandoAFaria/p2-self-test on GitHub; gh is authenticated). PR base for the final PR: main. Baseline SHA: de380333e4818373fd8768eab860b0fb926056f5 (= origin/main).\nFeature branch: operator/mo-b2d760/article-author, cut from the baseline SHA. Manager worktree path: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author. Put developer worktrees in /Users/ffaria/projects/p2-self-test/.claude/worktrees with unique mo-b2d760-* names (already excluded locally; no .gitignore changes). Never edit the user's checkout at /Users/ffaria/projects/p2-self-test; preserve all existing worktrees and user files.\nSkill dir: /Users/ffaria/.claude/skills/main-operator (absolute). Your log: /Users/ffaria/projects/p2-self-test/.git/main-operator/managers/mo-b2d760-khaleesi.md.\n\nAsk (user's words): \"Show the article's author on each article page, in the site's standard author format. Open a pull request with the change and a test.\"\n\nUser decisions (2026-10-20), settled:\n- Standard author format: \"By <authorName>, <authorTitle>\" as its own paragraph, e.g. <p>By Dana Reyes, Senior Editor</p>, from the existing authorName/authorTitle fields in articles.js.\n- Placement: under the publish date. Another open PR (#2, branch operator/mo-b2d760/article-publish-date, not on main) adds <p>Published ...</p> right after the <h1>. The user chose to build this change independently from main, so on this branch the byline goes directly after the <h1> and before the body. Do not base on or copy PR #2. When both are combined the order must be: h1, Published line, By line, body.\n\nScope: renderArticle in render.js, plus tests in test/ (extend test/render.test.js). Expected diff: render.js, test/, and the vault files below.\nConstraints: no new dependencies; do not change articles.js, the index page, server.js or package.json; match existing style; existing tests keep passing. Test through renderArticle with the real articles data (no HTTP test: server.js hard-codes port 3000 and listens on import).\nNon-goals: author on the index page; author pages/links; markup beyond the one byline paragraph.\nAcceptance:\n1. Pages show exactly: first-look \"By Dana Reyes, Senior Editor\"; field-notes \"By Sam Patel, Staff Writer\"; year-in-review \"By Lee Chen, Managing Editor\", directly after the <h1> and before the body.\n2. A test asserts the exact full article HTML for every article (so position and format are pinned).\n3. npm test passes; report the observed result.\n4. One PR from operator/mo-b2d760/article-author into main, opened with gh. Do not merge it; merging into main needs the user's OK through the CTO.\nVault: the subject \"site\" (scope: \"site-wide conventions and page behavior (official time zone, date display, article and index rendering)\") is defined by the CTO but its subjects.txt line exists only on PR #2's branch; add that exact identical line to .mo/vault/subjects.txt on this branch. Record in the vault (decisions/site): the site's standard author format is \"By <authorName>, <authorTitle>\" in its own paragraph after the publish date line (user decision 2026-10-20). Why: the repo defined no author format. Expect a .mo/vault conflict with PR #2 at merge time; the CTO will coordinate.\nDecomposition decision required: before dispatching, record how you split this among your developers (slices, owners, shared interface, real dependencies with their unblock criterion, non-goals, checks), or say why one owner is the right split. Dispatch ready slices in parallel. Obey the project's limits for expensive commands.\nFinish with mo task report for this task: final PR URL, head SHA, checks with observed results, risks, vault notes filed (--vault-note) and used (--vault-used), and a learning note or \"no new durable learning: <reason>\"; or blocked with the decision needed.\n",
+        "seat": "mo-b2d760-khaleesi",
+        "created_by": "mo-b2d760-tyrion",
+        "status": "reported",
+        "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/4",
+        "pr_state": "open",
+        "created_at": "2026-10-20T17:29:19.692537000Z",
+        "updated_at": "2026-10-20T17:36:15.157721000Z"
+      },
+      "attempts": [
+        {
+          "task_id": "T0003",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "note": "",
+          "delivery": "delivered",
+          "delivery_detail": "",
+          "prompt_path": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0003/attempt-1/prompt.md",
+          "recall": {
+            "knowledge_ref": "",
+            "category": "",
+            "subjects": [],
+            "source": "worktree",
+            "revision": "",
+            "query": "Show article author byline\nScope: renderArticle in render.js, plus tests in test/ (extend test/render.test.js). Expected diff: render.js, test/, and the vault files below.\nConstraints: no new dependencies; do not change articles.js, the index page, server.js or package.json; match existing style; existing tests keep passing. Test through renderArticle with the real articles data (no HTTP test: server.js hard-codes port 3000 and listens on import).",
+            "notes": [
+              {
+                "name": "scout-companion-rollback-completed",
+                "layer": "private",
+                "source": "/Users/ffaria/.local/share/mo/vault",
+                "revision": "",
+                "category": ""
+              }
+            ],
+            "warnings": [],
+            "problems": []
+          },
+          "created_at": "2026-10-20T17:29:19.732791000Z",
+          "updated_at": "2026-10-20T17:36:15.157839000Z"
+        }
+      ],
+      "fresh_sessions": [
+        {
+          "task_id": "T0003",
+          "attempt": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "keep_context": false,
+          "state": "kept",
+          "detail": "kept context: kind without a verified mechanism: codex",
+          "kind": "codex",
+          "command": "",
+          "pane_id": "wQ:pP",
+          "terminal_id": "term_65e48a3204c6198",
+          "previous_session": "",
+          "deadline": "2026-10-20T17:30:20.178243000Z"
+        }
+      ],
+      "reports": [
+        {
+          "task_id": "T0003",
+          "n": 1,
+          "from": "mo-b2d760-khaleesi",
+          "status": "done",
+          "summary": "T0003 attempt 1 done. Applied updates: none (no U<n> received).\nFinal PR: https://github.com/FernandoAFaria/p2-self-test/pull/4 \u2014 verified OPEN, main base, operator/mo-b2d760/article-author head ee721c852cec56008e95819cbf2cb0f859fac85a, mergedAt null. Not merged into main.\nBaseline: de380333e4818373fd8768eab860b0fb926056f5. Integration worktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author.\n\nBehavior: render.js:11 adds exactly one By <authorName>, <authorTitle> paragraph directly after h1 and before body. All three expected names/titles are pinned by literal complete HTML assertions at test/render.test.js:20-30. No articles.js/index/server.js/package.json/dependency changes.\nContract verified: articles.js:2-4 author fields \u2192 render.js:1 import, :9 lookup, :11 string \u2192 server.js:2 import, :8 article route, :9-10 response. Tests exercise real articles.js \u2192 renderArticle boundary, as assigned; no HTTP test added.\n\nDecomposition: one developer owner for the tiny renderer + regression contract, with manager owning review/integration/vault. T0004 by mo-b2d760-jorah reviewed by diff, baseline/worktree/head/PR scope and learning evidence. Developer PR #3 verified MERGED at 2026-10-20T17:35:07Z into feature from operator/mo-b2d760/article-author-jorah; accepted only after verification. Scorecard: scripted npm test passed; both reviewer rubrics 5/5; total 100%.\nChecks observed: baseline new regression 3 pass/3 fail, inspected missing-byline root cause; developer final and scripted check 6 pass/0 fail; integrated npm test 6 pass/0 fail; git diff --check passed; integration worktree clean; local and origin feature heads both ee721c852cec56008e95819cbf2cb0f859fac85a. Protected files unchanged. subjects.txt compared byte-identical to the authorized site line in PR #2's worktree. GitHub final PR has no configured status checks.\n\nVault: curated article-author-format (decisions/site), generated INDEX.md, identical CTO-defined site subjects.txt line. Note records user decision 2026-10-20 and reason (no prior author format), with renderArticle evidence. Applied article-author-format while reviewing; unrelated private Scout note not used. Developer read the curated note and proposed no duplicate; learning disposition accepted as accurate.\nRisks: PR #2 independently changes the same renderer insertion point and .mo/vault; CTO must coordinate conflicts and final order h1, Published, By, body. This branch deliberately contains no date behavior. Author fields follow existing direct static-data interpolation; no escaping refactor in scope. Main merge requires user's OK through CTO.\nLearning: no new durable learning: the user-set format/placement is captured in article-author-format and no additional convention emerged.\n",
+          "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/4",
+          "branch": "operator/mo-b2d760/article-author",
+          "worktree": "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author",
+          "baseline": "de380333e4818373fd8768eab860b0fb926056f5",
+          "head": "ee721c852cec56008e95819cbf2cb0f859fac85a",
+          "checks": [
+            "Integrated npm test: 6 pass, 0 fail; baseline regression: 3 intended missing-byline failures; diff --check passed; protected files unchanged; clean worktree and identical local/origin head; final PR OPEN into main"
+          ],
+          "source": "cli",
+          "vault_notes": [
+            "article-author-format"
+          ],
+          "vault_used": [
+            "article-author-format"
+          ],
+          "learning_note": "no new durable learning: user-set author format and placement captured in article-author-format; no additional convention emerged",
+          "artifact_dir": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0003/attempt-1",
+          "created_at": "2026-10-20T17:36:15.153547000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": 72,
+          "at": "2026-10-20T17:29:19.735008000Z",
+          "kind": "assign",
+          "task_id": "T0003",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "Show article author byline",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 73,
+          "at": "2026-10-20T17:29:20.174469000Z",
+          "kind": "delivery",
+          "task_id": "T0003",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "sending",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 74,
+          "at": "2026-10-20T17:29:20.456269000Z",
+          "kind": "delivery",
+          "task_id": "T0003",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "delivered: ",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 94,
+          "at": "2026-10-20T17:36:15.157874000Z",
+          "kind": "report",
+          "task_id": "T0003",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "done: T0003 attempt 1 done. Applied updates: none (no U<n> received).\nFinal PR: https://github.com/FernandoAFaria/p2-self-test/pull/4 \u2014 verified OPEN, main base, operator/mo-b2d760/article-author head ee721c852cec56008e95819cbf2cb0f859fac85a, mergedAt null. Not merged into main.\nBaseline: de380333e4818373fd8768eab860b0fb926056f5. Integration worktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author.\n\nBehavior: render.js:11 adds exactly one By <authorName>, <authorTitle> paragraph directly after h1 and before body. All three expected names/titles are pinned by literal complete HTML assertions at test/render.test.js:20-30. No articles.js/index/server.js/package.json/dependency changes.\nContract verified: articles.js:2-4 author fields \u2192 render.js:1 import, :9 lookup, :11 string \u2192 server.js:2 import, :8 article route, :9-10 response. Tests exercise real articles.js \u2192 renderArticle boundary, as assigned; no HTTP test added.\n\nDecomposition: one developer owner for the tiny renderer + regression contract, with manager owning review/integration/vault. T0004 by mo-b2d760-jorah reviewed by diff, baseline/worktree/head/PR scope and learning evidence. Developer PR #3 verified MERGED at 2026-10-20T17:35:07Z into feature from operator/mo-b2d760/article-author-jorah; accepted only after verification. Scorecard: scripted npm test passed; both reviewer rubrics 5/5; total 100%.\nChecks observed: baseline new regression 3 pass/3 fail, inspected missing-byline root cause; developer final and scripted check 6 pass/0 fail; integrated npm test 6 pass/0 fail; git diff --check passed; integration worktree clean; local and origin feature heads both ee721c852cec56008e95819cbf2cb0f859fac85a. Protected files unchanged. subjects.txt compared byte-identical to the authorized site line in PR #2's worktree. GitHub final PR has no configured status checks.\n\nVault: curated article-author-format (decisions/site), generated INDEX.md, identical CTO-defined site subjects.txt line. Note records user decision 2026-10-20 and reason (no prior author format), with renderArticle evidence. Applied article-author-format while reviewing; unrelated private Scout note not used. Developer read the curated note and proposed no duplicate; learning disposition accepted as accurate.\nRisks: PR #2 independently changes the same renderer insertion point and .mo/vault; CTO must coordinate conflicts and final order h1, Published, By, body. This branch deliberately contains no date behavior. Author fields follow existing direct static-data interpolation; no escaping refactor in scope. Main merge requires user's OK through CTO.\nLearning: no new durable learning: the user-set format/placement is captured in article-author-format and no additional convention emerged.\n",
+          "notify": "mo-b2d760-tyrion",
+          "notify_state": "delivered",
+          "notified_at": "2026-10-20T17:36:15.467991000Z",
+          "notify_detail": ""
+        },
+        {
+          "id": 97,
+          "at": "2026-10-20T17:36:38.427814000Z",
+          "kind": "ready",
+          "task_id": "T0003",
+          "n": 1,
+          "seat": "mo-b2d760-tyrion",
+          "message": "Article pages show \"<p>By <authorName>, <authorTitle></p>\" directly after the h1 and before the body (built from main; PR #2's Published line will sit between them when combined). Index, articles.js, server.js unchanged; no deps.\nCTO-verified at ee721c8 in an isolated worktree: npm test 6/6; tests pin exact full HTML for all three articles. Adds vault note article-author-format (decisions/site) and the same subjects.txt line as PR #2.\nRisks: conflicts with PR #2 in render.js, test/render.test.js and .mo/vault/INDEX.md; whichever merges second needs a revise.\n",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        }
+      ],
+      "scorecard": null
+    },
+    "T0004": {
+      "task": {
+        "id": "T0004",
+        "parent_id": "T0003",
+        "title": "Render exact article author bylines and regressions",
+        "kind": "change",
+        "brief": "Skill dir: /Users/ffaria/.claude/skills/main-operator (absolute). Follow your developer core; do not load a second role file.\nRepository: /Users/ffaria/projects/p2-self-test. Remote: origin (FernandoAFaria/p2-self-test).\nWorktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author-jorah.\nBranch: operator/mo-b2d760/article-author-jorah. Baseline SHA: de380333e4818373fd8768eab860b0fb926056f5. PR base: operator/mo-b2d760/article-author.\nGoal: Add one author byline paragraph to renderArticle; exact full HTML regression for all three real articles. One owner is appropriate because renderer and regression are one small contract. Create isolated worktree from baseline. Never edit source checkout or manager worktree.\nOwned files: render.js (renderArticle only), test/render.test.js. Manager owns all vault writes.\nContracts and dependencies: renderArticle(slug) imports real articles.js data and returns <article><h1>TITLE</h1><p>By NAME, TITLE</p><p>BODY</p></article>. Unknown slug remains null. Data fields already exist; no blocker. Consumer tests invoke renderArticle with real article slugs. First-look: By Dana Reyes, Senior Editor; field-notes: By Sam Patel, Staff Writer; year-in-review: By Lee Chen, Managing Editor.\nPlacement: user chose independent branch from main. Byline immediately after h1 and before body here. Do not base on/copy PR #2's publish-date work; CTO later combines h1, Published paragraph, By paragraph, body.\nNon-goals: no articles.js, index behavior, server.js, package.json, dependencies, links/pages, extra markup, refactors, vault files. Preserve user work. Match existing style.\nAcceptance criteria: every article gets exact byline; test exact complete literal HTML for each real article (no computed expectations that repeat implementation); existing tests pass. Show new regression fails on baseline and passes with renderer fix. Open developer PR with gh to feature branch; do not merge. Report PR URL/head/baseline/worktree, observed checks, file:line evidence for every changed behavior, full cross-module contract trace producer to intermediaries to consumer before push, applied updates, risks and Proposed vault notes. No relevant site vault note exists yet; unrelated private Scout note must not be imported or claimed used. Propose decisions/site standard author format as user decision 2026-10-20 in own paragraph after publish date, because repo had no author format; manager will curate. Give honest learning disposition and any notes actually used.\nChecks to run: npm test (node --test), exact full HTML assertions for all three real records. No HTTP test: server hardcodes port 3000 and listens on import. No install/new dependency. No project expensive-command cap found; serialize tests in your worktree; manager waits for report before rerun. Read any red signal to root cause, including baseline intended red; reverify any review fixes before push.\n",
+        "seat": "mo-b2d760-jorah",
+        "created_by": "mo-b2d760-khaleesi",
+        "status": "accepted",
+        "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/3",
+        "pr_state": "merged",
+        "created_at": "2026-10-20T17:31:07.376717000Z",
+        "updated_at": "2026-10-20T17:35:18.385098000Z"
+      },
+      "attempts": [
+        {
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "note": "",
+          "delivery": "delivered",
+          "delivery_detail": "",
+          "prompt_path": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0004/attempt-1/prompt.md",
+          "recall": {
+            "knowledge_ref": "",
+            "category": "",
+            "subjects": [
+              "site"
+            ],
+            "source": "worktree",
+            "revision": "",
+            "query": "",
+            "notes": [
+              {
+                "name": "article-author-format",
+                "layer": "repo",
+                "source": "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author/.mo/vault",
+                "revision": "",
+                "category": "decisions/site"
+              }
+            ],
+            "warnings": [],
+            "problems": []
+          },
+          "created_at": "2026-10-20T17:31:07.421327000Z",
+          "updated_at": "2026-10-20T17:34:30.309222000Z"
+        }
+      ],
+      "fresh_sessions": [
+        {
+          "task_id": "T0004",
+          "attempt": 1,
+          "seat": "mo-b2d760-jorah",
+          "keep_context": false,
+          "state": "verified",
+          "detail": "fresh session: cleared (claude /clear, session verified)",
+          "kind": "claude",
+          "command": "/clear",
+          "pane_id": "wQ:pV",
+          "terminal_id": "term_65e48a605b9e89d",
+          "previous_session": "c6a77824-ae73-4f6a-89a8-de9773b55966",
+          "deadline": "2026-10-20T17:32:08.165717000Z"
+        }
+      ],
+      "reports": [
+        {
+          "task_id": "T0004",
+          "n": 1,
+          "from": "mo-b2d760-jorah",
+          "status": "done",
+          "summary": "# T0004 attempt 1 report: article author byline\n\nStatus: done. PR https://github.com/FernandoAFaria/p2-self-test/pull/3 (open, not merged, mergeable).\n\nBranch: operator/mo-b2d760/article-author-jorah\nWorktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author-jorah\nBaseline: de380333e4818373fd8768eab860b0fb926056f5\nHead: c2c5853a5a0ef4b406d825988298537cd8348bb3\nPR base: operator/mo-b2d760/article-author\n\nApplied updates: none (task history has no U<n> entries).\n\n## Changed behavior (file:line)\n\n- render.js:11: renderArticle returns `<article><h1>TITLE</h1><p>By NAME, TITLE</p><p>BODY</p></article>`. NAME and TITLE come from authorName and authorTitle. Unknown slugs still return null (render.js:10).\n- test/render.test.js:20-22, 24-26, 28-30: three exact full-HTML assertions, one per real slug. Expected strings are literals. The existing three tests are unchanged.\n- Only render.js and test/render.test.js changed. renderIndex, articles.js, server.js and package.json are untouched.\n\n## Contract trace (producer \u2192 intermediary \u2192 consumer)\n\n- Producer: articles.js:2-4 (authorName, authorTitle per record)\n- Intermediary: render.js:1 imports articles; render.js:9 finds the record by slug; render.js:11 builds the byline and body\n- Consumer: server.js:2 imports renderArticle; server.js:8 calls it for /articles/:slug; server.js:9-10 writes 200 text/html with the returned string\n- Automated tests cross articles.js \u2192 render.js with real records. The server hop is checked only by the one-off smoke below, because server.js listens on port 3000 on import.\n\n## Checks run\n\n- npm test before the renderer fix (new tests, renderer unchanged): 3 pass, 3 fail. All three failures are the missing `<p>By \u2026</p>` between `</h1>` and the body. The existing three tests pass. Output: /private/tmp/claude-502/-Users-ffaria-projects-p2-self-test/ff3ca120-f64b-4bd5-8bd0-8b6ecf49e3b6/scratchpad/baseline-red.txt\n- npm test after the renderer fix: 6 pass, 0 fail. Output: /private/tmp/claude-502/-Users-ffaria-projects-p2-self-test/ff3ca120-f64b-4bd5-8bd0-8b6ecf49e3b6/scratchpad/final-green.txt\n- Direct renderArticle output for first-look, field-notes, year-in-review: exact bylines as specified. missing returns null. renderIndex unchanged.\n- One-off HTTP smoke, not added to the suite. Imported server.js in one foreground process, fetched the endpoints, then exited: /articles/first-look, /articles/field-notes and /articles/year-in-review returned 200 text/html with the bylined HTML. /articles/missing returned 404.\n- git diff: 2 files, 13 insertions, 1 deletion.\n- gh pr view 3: base operator/mo-b2d760/article-author, head operator/mo-b2d760/article-author-jorah at c2c5853, mergeable, files render.js and test/render.test.js.\n\n## Risks and notes\n\n- PR base moved. operator/mo-b2d760/article-author is now 3c0ff68 (docs: record standard article author byline). It adds only .mo/vault/* files and does not touch render.js or test/. This branch is based on de380333 and was not merged with the base. The three-dot PR diff contains only the two owned files, and there is no conflict.\n- authorName and authorTitle are not HTML-escaped, the same as title and body. Safe for current static data only.\n- The suite does not exercise server.js. The HTTP check above was manual.\n- Byline placement is directly after the heading because the publish-date work is not on this branch. The CTO combines the layout later. The byline must go after the Published paragraph in the combined layout.\n\n## Vault\n\n- Applied vault note: article-author-format (decisions/site). It defines the \"By <authorName>, <authorTitle>\" format and placement, and this branch matches it. This is the only vault note used.\n- Proposed vault notes: none. The existing article-author-format note already matches this branch's output. Its statement that the byline follows the heading when no publish date is rendered is accurate for this branch. No new note is needed.\n- Learning disposition: no new durable learning. Server listen-on-import is visible in server.js:4-11 and is not a new rule.\n",
+          "pr_url": "https://github.com/FernandoAFaria/p2-self-test/pull/3",
+          "branch": "operator/mo-b2d760/article-author-jorah",
+          "worktree": "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author-jorah",
+          "baseline": "de380333e4818373fd8768eab860b0fb926056f5",
+          "head": "c2c5853a5a0ef4b406d825988298537cd8348bb3",
+          "checks": [
+            "npm test before renderer fix (new tests, renderer unchanged): 3 pass, 3 fail; all failures are the missing <p>By \u2026</p> after </h1> (render.js:11 pre-fix); existing 3 tests pass",
+            "npm test after renderer fix: 6 pass, 0 fail, exit 0",
+            "direct renderArticle output: first-look \"By Dana Reyes, Senior Editor\", field-notes \"By Sam Patel, Staff Writer\", year-in-review \"By Lee Chen, Managing Editor\"; missing returns null; renderIndex unchanged",
+            "one-off HTTP smoke, not in suite: /articles/first-look, field-notes, year-in-review 200 text/html with bylined HTML; /articles/missing 404",
+            "git diff: 2 files, +13 -1 (render.js, test/render.test.js); pushed without force",
+            "gh pr view 3: base operator/mo-b2d760/article-author, head c2c5853, MERGEABLE, files render.js and test/render.test.js"
+          ],
+          "source": "cli",
+          "vault_used": [
+            "article-author-format"
+          ],
+          "learning_note": "no new durable learning: byline format and placement already in article-author-format; server listen-on-import is visible in server.js:4-11",
+          "artifact_dir": "/Users/ffaria/projects/p2-self-test/.git/mo/tasks/T0004/attempt-1",
+          "created_at": "2026-10-20T17:34:30.307108000Z"
+        }
+      ],
+      "events": [
+        {
+          "id": 77,
+          "at": "2026-10-20T17:31:07.377009000Z",
+          "kind": "link",
+          "task_id": "T0004",
+          "n": 0,
+          "seat": "mo-b2d760-jorah",
+          "message": "parent T0003",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 78,
+          "at": "2026-10-20T17:31:07.424157000Z",
+          "kind": "assign",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "Render exact article author bylines and regressions",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 79,
+          "at": "2026-10-20T17:31:07.424272000Z",
+          "kind": "scorecard",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "scorecard v1",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 80,
+          "at": "2026-10-20T17:31:08.162927000Z",
+          "kind": "delivery",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "sending",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 81,
+          "at": "2026-10-20T17:31:08.166233000Z",
+          "kind": "delivery",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "clearing: fresh session: clearing (claude /clear), awaiting session verification",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 84,
+          "at": "2026-10-20T17:31:10.229075000Z",
+          "kind": "delivery",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "sending: fresh session: cleared (claude /clear, session verified)",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 85,
+          "at": "2026-10-20T17:31:10.325537000Z",
+          "kind": "delivery",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "delivered: ",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 88,
+          "at": "2026-10-20T17:34:30.309266000Z",
+          "kind": "report",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "done: # T0004 attempt 1 report: article author byline\n\nStatus: done. PR https://github.com/FernandoAFaria/p2-self-test/pull/3 (open, not merged, mergeable).\n\nBranch: operator/mo-b2d760/article-author-jorah\nWorktree: /Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author-jorah\nBaseline: de380333e4818373fd8768eab860b0fb926056f5\nHead: c2c5853a5a0ef4b406d825988298537cd8348bb3\nPR base: operator/mo-b2d760/article-author\n\nApplied updates: none (task history has no U<n> entries).\n\n## Changed behavior (file:line)\n\n- render.js:11: renderArticle returns `<article><h1>TITLE</h1><p>By NAME, TITLE</p><p>BODY</p></article>`. NAME and TITLE come from authorName and authorTitle. Unknown slugs still return null (render.js:10).\n- test/render.test.js:20-22, 24-26, 28-30: three exact full-HTML assertions, one per real slug. Expected strings are literals. The existing three tests are unchanged.\n- Only render.js and test/render.test.js changed. renderIndex, articles.js, server.js and package.json are untouched.\n\n## Contract trace (producer \u2192 intermediary \u2192 consumer)\n\n- Producer: articles.js:2-4 (authorName, authorTitle per record)\n- Intermediary: render.js:1 imports articles; render.js:9 finds the record by slug; render.js:11 builds the byline and body\n- Consumer: server.js:2 imports renderArticle; server.js:8 calls it for /articles/:slug; server.js:9-10 writes 200 text/html with the returned string\n- Automated tests cross articles.js \u2192 render.js with real records. The server hop is checked only by the one-off smoke below, because server.js listens on port 3000 on import.\n\n## Checks run\n\n- npm test before the renderer fix (new tests, renderer unchanged): 3 pass, 3 fail. All three failures are the missing `<p>By \u2026</p>` between `</h1>` and the body. The existing three tests pass. Output: /private/tmp/claude-502/-Users-ffaria-projects-p2-self-test/ff3ca120-f64b-4bd5-8bd0-8b6ecf49e3b6/scratchpad/baseline-red.txt\n- npm test after the renderer fix: 6 pass, 0 fail. Output: /private/tmp/claude-502/-Users-ffaria-projects-p2-self-test/ff3ca120-f64b-4bd5-8bd0-8b6ecf49e3b6/scratchpad/final-green.txt\n- Direct renderArticle output for first-look, field-notes, year-in-review: exact bylines as specified. missing returns null. renderIndex unchanged.\n- One-off HTTP smoke, not added to the suite. Imported server.js in one foreground process, fetched the endpoints, then exited: /articles/first-look, /articles/field-notes and /articles/year-in-review returned 200 text/html with the bylined HTML. /articles/missing returned 404.\n- git diff: 2 files, 13 insertions, 1 deletion.\n- gh pr view 3: base operator/mo-b2d760/article-author, head operator/mo-b2d760/article-author-jorah at c2c5853, mergeable, files render.js and test/render.test.js.\n\n## Risks and notes\n\n- PR base moved. operator/mo-b2d760/article-author is now 3c0ff68 (docs: record standard article author byline). It adds only .mo/vault/* files and does not touch render.js or test/. This branch is based on de380333 and was not merged with the base. The three-dot PR diff contains only the two owned files, and there is no conflict.\n- authorName and authorTitle are not HTML-escaped, the same as title and body. Safe for current static data only.\n- The suite does not exercise server.js. The HTTP check above was manual.\n- Byline placement is directly after the heading because the publish-date work is not on this branch. The CTO combines the layout later. The byline must go after the Published paragraph in the combined layout.\n\n## Vault\n\n- Applied vault note: article-author-format (decisions/site). It defines the \"By <authorName>, <authorTitle>\" format and placement, and this branch matches it. This is the only vault note used.\n- Proposed vault notes: none. The existing article-author-format note already matches this branch's output. Its statement that the byline follows the heading when no publish date is rendered is accurate for this branch. No new note is needed.\n- Learning disposition: no new durable learning. Server listen-on-import is visible in server.js:4-11 and is not a new rule.\n",
+          "notify": "mo-b2d760-khaleesi",
+          "notify_state": "delivered",
+          "notified_at": "2026-10-20T17:34:31.175339000Z",
+          "notify_detail": ""
+        },
+        {
+          "id": 90,
+          "at": "2026-10-20T17:34:56.996830000Z",
+          "kind": "score_grade",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "byline-contract-and-scope 5/5: Verified two-file diff, exact real author fields and placement, baseline ancestry, clean worktree, PR base/head and unchanged protected files.",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 91,
+          "at": "2026-10-20T17:34:57.370361000Z",
+          "kind": "score_grade",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-khaleesi",
+          "message": "regression-and-evidence 5/5: Reviewed literal full HTML assertions for all three real records, baseline failure cause, passing scripted check, complete file:line server trace and accurate vault learning disposition.",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 92,
+          "at": "2026-10-20T17:35:18.299218000Z",
+          "kind": "pr",
+          "task_id": "T0004",
+          "n": 0,
+          "seat": "mo-b2d760-jorah",
+          "message": "merged https://github.com/FernandoAFaria/p2-self-test/pull/3",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        },
+        {
+          "id": 93,
+          "at": "2026-10-20T17:35:18.385369000Z",
+          "kind": "accept",
+          "task_id": "T0004",
+          "n": 1,
+          "seat": "mo-b2d760-jorah",
+          "message": "accepted",
+          "notify": "",
+          "notify_state": "",
+          "notified_at": "",
+          "notify_detail": ""
+        }
+      ],
+      "scorecard": {
+        "task_id": "T0004",
+        "version": 1,
+        "card": {
+          "threshold": 100,
+          "checks": [
+            {
+              "name": "npm-test",
+              "command": [
+                "npm",
+                "--prefix",
+                "/Users/ffaria/projects/p2-self-test/.claude/worktrees/mo-b2d760-article-author-jorah",
+                "test"
+              ],
+              "weight": 40,
+              "timeout": "60s"
+            }
+          ],
+          "rubric": [
+            {
+              "name": "byline-contract-and-scope",
+              "weight": 30,
+              "description": "Exact three bylines after h1/before body; real author fields; renderer/tests only; independent baseline and correct feature PR base.",
+              "scale": 5
+            },
+            {
+              "name": "regression-and-evidence",
+              "weight": 30,
+              "description": "Literal full HTML tests for all real articles; baseline red/final green; file:line boundary trace; honest useful learning and proposed vault note.",
+              "scale": 5
+            }
+          ]
+        },
+        "set_by": "mo-b2d760-khaleesi",
+        "set_at": "2026-10-20T17:31:07.424251000Z",
+        "run": {
+          "n": 1,
+          "scorecard_n": 1,
+          "attempt": 1,
+          "head": "c2c5853a5a0ef4b406d825988298537cd8348bb3",
+          "trigger": "report",
+          "state": "done",
+          "detail": "",
+          "requested_by": "mo-b2d760-jorah",
+          "alert": "",
+          "created_at": "2026-10-20T17:34:30.308814000Z",
+          "started_at": "2026-10-20T17:34:31.140122000Z",
+          "finished_at": "2026-10-20T17:34:31.782373000Z"
+        },
+        "checks": [
+          {
+            "name": "npm-test",
+            "weight": 40,
+            "timeout": "60s",
+            "state": "pass",
+            "exit_code": 0,
+            "duration_ms": 637,
+            "output_tail": "\n> p2-article-site@1.0.0 test\n> node --test\n\n\u2714 index lists every article (0.363292ms)\n\u2714 article page shows title and body (0.067041ms)\n\u2714 unknown article returns null (0.059208ms)\n\u2714 first-look article renders exact byline and body (0.414708ms)\n\u2714 field-notes article renders exact byline and body (0.094959ms)\n\u2714 year-in-review article renders exact byline and body (0.048708ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 67.98575\n",
+            "detail": "",
+            "started_at": "2026-10-20T17:34:31.140122000Z",
+            "finished_at": "2026-10-20T17:34:31.781729000Z"
+          }
+        ],
+        "grades": [
+          {
+            "item": "byline-contract-and-scope",
+            "weight": 30,
+            "scale": 5,
+            "description": "Exact three bylines after h1/before body; real author fields; renderer/tests only; independent baseline and correct feature PR base.",
+            "grade": 5,
+            "note": "Verified two-file diff, exact real author fields and placement, baseline ancestry, clean worktree, PR base/head and unchanged protected files.",
+            "by": "mo-b2d760-khaleesi",
+            "at": "2026-10-20T17:34:56.996697000Z"
+          },
+          {
+            "item": "regression-and-evidence",
+            "weight": 30,
+            "scale": 5,
+            "description": "Literal full HTML tests for all real articles; baseline red/final green; file:line boundary trace; honest useful learning and proposed vault note.",
+            "grade": 5,
+            "note": "Reviewed literal full HTML assertions for all three real records, baseline failure cause, passing scripted check, complete file:line server trace and accurate vault learning disposition.",
+            "by": "mo-b2d760-khaleesi",
+            "at": "2026-10-20T17:34:57.370261000Z"
+          }
+        ],
+        "points": 100,
+        "max": 100,
+        "percent": 100,
+        "attainable": 100,
+        "threshold": 100,
+        "verdict": "pass",
+        "alerts": []
+      }
+    }
+  }
+}
